@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.htwg_konstanz</groupId>
+    <artifactId>modelling</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    <modules>
+        <module>templates</module>
+        <module>runtime</module>
+    </modules>
+
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <junit.jupiter.version>5.4.2</junit.jupiter.version>
+        <!--
+                Be aware: versions compatibility in scala could be problematic!
+                For example, scala-maven-plugin:3.2.1 requires scala 2.12.3, but
+                scala-maven-plugin:4.0.2 works with scala-library:2.12.6
+        -->
+        <scala-library.version>2.13.3</scala-library.version>
+        <scala-maven-plugin.version>4.4.0</scala-maven-plugin.version>
+
+        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.typesafe.play</groupId>
+            <artifactId>twirl-api_2.12</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+            <version>${scala-library.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala-library.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scala-lang.modules</groupId>
+            <artifactId>scala-parser-combinators_2.13</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <defaultGoal>test</defaultGoal>
+        <sourceDirectory>${project.basedir}/src/main/scala</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/scala</testSourceDirectory>
+
+        <plugins>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>${scala-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <scalaVersion>${scala-library.version}</scalaVersion>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>com.jakewharton.twirl</groupId>
+                <artifactId>twirl-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+    </build>
+
+    <!--    <properties>-->
+    <!--        <junit.jupiter.version>5.6.2</junit.jupiter.version>-->
+    <!--    </properties>-->
+
+    <!--    <dependencies>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.scala-lang.modules</groupId>-->
+    <!--            <artifactId>scala-parser-combinators_2.13</artifactId>-->
+    <!--            <version>1.1.2</version>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.junit.jupiter</groupId>-->
+    <!--            <artifactId>junit-jupiter</artifactId>-->
+    <!--            <version>${junit.jupiter.version}</version>-->
+    <!--            <scope>test</scope>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.junit.jupiter</groupId>-->
+    <!--            <artifactId>junit-jupiter-params</artifactId>-->
+    <!--            <version>${junit.jupiter.version}</version>-->
+    <!--            <scope>test</scope>-->
+    <!--        </dependency>-->
+    <!--    </dependencies>-->
+
+    <!--    <build>-->
+    <!--        <sourceDirectory>src/main/scala</sourceDirectory>-->
+    <!--        <testSourceDirectory>src/test/scala</testSourceDirectory>-->
+    <!--        <plugins>-->
+    <!--            <plugin>-->
+    <!--                <groupId>net.alchim31.maven</groupId>-->
+    <!--                <artifactId>scala-maven-plugin</artifactId>-->
+    <!--                <version>4.4.0</version>-->
+    <!--                <executions>-->
+    <!--                    <execution>-->
+    <!--                        <goals>-->
+    <!--                            <goal>compile</goal>-->
+    <!--                            <goal>testCompile</goal>-->
+    <!--                        </goals>-->
+    <!--                    </execution>-->
+    <!--                </executions>-->
+    <!--                <configuration>-->
+    <!--                    <scalaVersion>2.13.3</scalaVersion>-->
+    <!--                </configuration>-->
+    <!--            </plugin>-->
+    <!--            <plugin>-->
+    <!--                <groupId>org.apache.maven.plugins</groupId>-->
+    <!--                <artifactId>maven-surefire-plugin</artifactId>-->
+    <!--                <version>2.6</version>-->
+    <!--                <configuration>-->
+    <!--                    <useFile>false</useFile>-->
+    <!--                    <disableXmlReport>true</disableXmlReport>-->
+    <!--                    &lt;!&ndash; If you have classpath issue like NoDefClassError,... &ndash;&gt;-->
+    <!--                    &lt;!&ndash; useManifestOnlyJar>false</useManifestOnlyJar &ndash;&gt;-->
+    <!--                    <includes>-->
+    <!--                        <include>**/*Test.*</include>-->
+    <!--                        <include>**/*Suite.*</include>-->
+    <!--                    </includes>-->
+    <!--                </configuration>-->
+    <!--                <dependencies>-->
+    <!--                    <dependency>-->
+    <!--                        <groupId>org.junit.jupiter</groupId>-->
+    <!--                        <artifactId>junit-jupiter-engine</artifactId>-->
+    <!--                        <version>${junit.jupiter.version}</version>-->
+    <!--                    </dependency>-->
+    <!--                </dependencies>-->
+    <!--            </plugin>-->
+    <!--        </plugins>-->
+    <!--    </build>-->
+</project>
