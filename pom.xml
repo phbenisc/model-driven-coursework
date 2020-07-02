@@ -7,7 +7,7 @@
     <groupId>de.htwg_konstanz</groupId>
     <artifactId>modelling</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <modules>
         <module>templates</module>
@@ -17,6 +17,8 @@
 
 
     <properties>
+        <revision>1.0.0-SNAPSHOT</revision>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <junit.jupiter.version>5.4.2</junit.jupiter.version>
@@ -25,8 +27,8 @@
                 For example, scala-maven-plugin:3.2.1 requires scala 2.12.3, but
                 scala-maven-plugin:4.0.2 works with scala-library:2.12.6
         -->
-        <scala-library.version>2.13.3</scala-library.version>
-        <scala.major.version>2.13</scala.major.version>
+        <scala-library.version>2.12.8</scala-library.version>
+        <scala.major.version>2.12</scala.major.version>
         <scala-maven-plugin.version>4.4.0</scala-maven-plugin.version>
 
         <twirl.version>1.4.1</twirl.version>
@@ -50,7 +52,7 @@
 
         <dependency>
             <groupId>org.scala-lang.modules</groupId>
-            <artifactId>scala-parser-combinators_2.13</artifactId>
+            <artifactId>scala-parser-combinators_${scala.major.version}</artifactId>
             <version>1.1.2</version>
         </dependency>
 
@@ -111,8 +113,18 @@
         <dependencies>
             <dependency>
                 <groupId>com.typesafe.play</groupId>
-                <artifactId>twirl-api_2.12</artifactId>
+                <artifactId>twirl-api_${scala.major.version}</artifactId>
                 <version>${twirl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.htwg_konstanz</groupId>
+                <artifactId>model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.htwg_konstanz</groupId>
+                <artifactId>templates</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

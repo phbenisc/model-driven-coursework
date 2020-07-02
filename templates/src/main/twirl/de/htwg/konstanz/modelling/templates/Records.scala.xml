@@ -1,0 +1,58 @@
+@import de.htwg.konstanz.modelling.model.Record
+@(record: Record)
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+    <xs:element name="@record.name">
+        <xs:complexType>
+            <xs:sequence>
+            @for(field <- record.fields) {
+                <xs:element name="@field.name">
+                    <xs:simpleType>
+                @field.dataType.name match {
+                    case "C" | "Zc" => {
+                        @for(fixedValue <- field.dataType.fixedValue) {
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="@fixedValue"/>
+                            </xs:restriction>
+                        }
+
+                        @for(enum <- field.dataType.enumeration) {
+                            <xs:restriction base="xs:string">
+                            @for(evalue <- enum.values) {
+                                <xs:enumeration value="@evalue.name"/>
+                            }
+                            </xs:restriction>
+                        }
+
+                        @if(!(field.dataType.fixedValue.isDefined || field.dataType.enumeration.isDefined)) {
+                                <xs:restriction base="xs:string">
+                                    <xs:length value="@field.dataType.length"/>
+                                </xs:restriction>
+                        }
+                    }
+                    case "N" => {
+                        @if(field.dataType.floatDigitsBeforeDecimal.isEmpty) {
+                                <xs:restriction base="xs:int">
+                                    <xs:totalDigits value="@field.dataType.length"/>
+                                </xs:restriction>
+                        }
+                        @for(digitsBefore <- field.dataType.floatDigitsBeforeDecimal;
+                                digitsAfter <- field.dataType.floatDigitsAfterDecimal
+                        ) {
+                            <xs:restriction base="xs:int">
+                                <xs:pattern value="\d{1,@digitsBefore}(?:\.\d{1,@digitsAfter})?"/>
+                            </xs:restriction>
+                        }
+                    }
+                }
+                    </xs:simpleType>
+                </xs:element>
+            }
+            </xs:sequence>
+
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
