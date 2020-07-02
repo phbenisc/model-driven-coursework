@@ -24,8 +24,7 @@ object Transformer {
 
   def checkDataType(record: Record): Either[String, Record] = {
 
-    val dataTypes = record.fields
-      .map(field => field.dataType)
+    val dataTypes = record.fields.map(field => field.dataType)
 
     if (dataTypes.exists(dt => dt.enumeration.isDefined && dt.fixedValue.isDefined))
       Left("Either a fixed value can be defined or a enumeration, but not both at the same time")

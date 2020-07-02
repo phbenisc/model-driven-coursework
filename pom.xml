@@ -8,9 +8,11 @@
     <artifactId>modelling</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
+
     <modules>
         <module>templates</module>
         <module>runtime</module>
+        <module>model</module>
     </modules>
 
 
@@ -24,7 +26,10 @@
                 scala-maven-plugin:4.0.2 works with scala-library:2.12.6
         -->
         <scala-library.version>2.13.3</scala-library.version>
+        <scala.major.version>2.13</scala.major.version>
         <scala-maven-plugin.version>4.4.0</scala-maven-plugin.version>
+
+        <twirl.version>1.4.1</twirl.version>
 
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
@@ -32,11 +37,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.typesafe.play</groupId>
-            <artifactId>twirl-api_2.12</artifactId>
-            <version>1.4.1</version>
-        </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-compiler</artifactId>
@@ -107,72 +107,14 @@
 
     </build>
 
-    <!--    <properties>-->
-    <!--        <junit.jupiter.version>5.6.2</junit.jupiter.version>-->
-    <!--    </properties>-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.typesafe.play</groupId>
+                <artifactId>twirl-api_2.12</artifactId>
+                <version>${twirl.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-    <!--    <dependencies>-->
-    <!--        <dependency>-->
-    <!--            <groupId>org.scala-lang.modules</groupId>-->
-    <!--            <artifactId>scala-parser-combinators_2.13</artifactId>-->
-    <!--            <version>1.1.2</version>-->
-    <!--        </dependency>-->
-    <!--        <dependency>-->
-    <!--            <groupId>org.junit.jupiter</groupId>-->
-    <!--            <artifactId>junit-jupiter</artifactId>-->
-    <!--            <version>${junit.jupiter.version}</version>-->
-    <!--            <scope>test</scope>-->
-    <!--        </dependency>-->
-    <!--        <dependency>-->
-    <!--            <groupId>org.junit.jupiter</groupId>-->
-    <!--            <artifactId>junit-jupiter-params</artifactId>-->
-    <!--            <version>${junit.jupiter.version}</version>-->
-    <!--            <scope>test</scope>-->
-    <!--        </dependency>-->
-    <!--    </dependencies>-->
-
-    <!--    <build>-->
-    <!--        <sourceDirectory>src/main/scala</sourceDirectory>-->
-    <!--        <testSourceDirectory>src/test/scala</testSourceDirectory>-->
-    <!--        <plugins>-->
-    <!--            <plugin>-->
-    <!--                <groupId>net.alchim31.maven</groupId>-->
-    <!--                <artifactId>scala-maven-plugin</artifactId>-->
-    <!--                <version>4.4.0</version>-->
-    <!--                <executions>-->
-    <!--                    <execution>-->
-    <!--                        <goals>-->
-    <!--                            <goal>compile</goal>-->
-    <!--                            <goal>testCompile</goal>-->
-    <!--                        </goals>-->
-    <!--                    </execution>-->
-    <!--                </executions>-->
-    <!--                <configuration>-->
-    <!--                    <scalaVersion>2.13.3</scalaVersion>-->
-    <!--                </configuration>-->
-    <!--            </plugin>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                <artifactId>maven-surefire-plugin</artifactId>-->
-    <!--                <version>2.6</version>-->
-    <!--                <configuration>-->
-    <!--                    <useFile>false</useFile>-->
-    <!--                    <disableXmlReport>true</disableXmlReport>-->
-    <!--                    &lt;!&ndash; If you have classpath issue like NoDefClassError,... &ndash;&gt;-->
-    <!--                    &lt;!&ndash; useManifestOnlyJar>false</useManifestOnlyJar &ndash;&gt;-->
-    <!--                    <includes>-->
-    <!--                        <include>**/*Test.*</include>-->
-    <!--                        <include>**/*Suite.*</include>-->
-    <!--                    </includes>-->
-    <!--                </configuration>-->
-    <!--                <dependencies>-->
-    <!--                    <dependency>-->
-    <!--                        <groupId>org.junit.jupiter</groupId>-->
-    <!--                        <artifactId>junit-jupiter-engine</artifactId>-->
-    <!--                        <version>${junit.jupiter.version}</version>-->
-    <!--                    </dependency>-->
-    <!--                </dependencies>-->
-    <!--            </plugin>-->
-    <!--        </plugins>-->
-    <!--    </build>-->
 </project>
