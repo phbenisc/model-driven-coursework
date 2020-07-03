@@ -1,6 +1,5 @@
 package de.htwg.konstanz.modelling.generator
 
-import de.htwg.konstanz.modelling.parser.Parser
 import org.junit.jupiter.api.Test
 
 class GeneratorTest {
