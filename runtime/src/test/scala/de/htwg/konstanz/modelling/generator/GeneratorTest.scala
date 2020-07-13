@@ -3,7 +3,6 @@ package de.htwg.konstanz.modelling.generator
 import org.junit.jupiter.api.Test
 
 class GeneratorTest {
-  val sut = new Generator()
 
   @Test
   def testComplexDSL(): Unit = {
@@ -19,6 +18,6 @@ class GeneratorTest {
         |     Field amount:                  N (10, 5)  pos (46, 15)
         |}""".stripMargin
 
-      sut.generateFile(c0RecordDsl)
+    Generator.generateFile(c0RecordDsl)
   }
 }

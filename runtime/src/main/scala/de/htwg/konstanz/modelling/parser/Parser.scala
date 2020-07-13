@@ -24,7 +24,6 @@ class Parser extends RegexParsers {
   def fields: Parser[List[Field]] = rep(field)
   def field: Parser[Field] = "Field" ~ opt("required") ~ text ~ ":" ~ dataType ^^ { case _ ~ required ~ name ~ _ ~ data => Field(name, required.isDefined, data) }
 
-
   def dataType: Parser[DataType] =
     text ~ opt(intTuple) ~ "pos" ~ intTuple  ~ opt(fixedValue) ~ opt(enumeration) ^^ { case name ~ optFloat ~ _ ~ pos ~ optFixVal ~ optEnum  =>
       DataType(
@@ -38,7 +37,7 @@ class Parser extends RegexParsers {
       )
     }
 
-  def fixedValue: Parser[String] = "as" ~ "fixedValue " ~ text ^^ { case _ ~ _ ~ value => value}
+  def fixedValue: Parser[String] = "as" ~ "fixedValue" ~ text ^^ { case _ ~ _ ~ value => value}
 
   def enumValue: Parser[EnumValue] = """[\w\d+\-]+""".r ^^ (value => EnumValue(value, value))
   def enumValues: Parser[List[EnumValue]] = repsep(enumValue, ",") ^^ (values => values)

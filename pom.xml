@@ -13,6 +13,7 @@
         <module>templates</module>
         <module>runtime</module>
         <module>model</module>
+        <module>test</module>
     </modules>
 
 
