@@ -34,13 +34,6 @@
                         <argument>${project.build.directory}/classes/</argument>
                     </arguments>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>de.htwg_konstanz</groupId>
-                        <artifactId>runtime</artifactId>
-                        <version>${project.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
